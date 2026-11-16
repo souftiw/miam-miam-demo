@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101010">
+<meta name="description" content="MIAM MIAM - Découvrez nos burgers, pizzas et tacos. Commandez facilement en ligne.">
+<title>MIAM MIAM | Fast Food</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --orange:#ff7518;
+  --yellow:#ffb52e;
+  --dark:#101010;
+  --card:#191919;
+  --muted:#a1a1a1;
+  --white:#fff;
+}
+
+* {margin:0;padding:0;box-sizing:border-box;}
+
+html {scroll-behavior:smooth;}
+
+body {
+  background:var(--dark);
+  color:white;
+  font-family:'DM Sans',sans-serif;
+  overflow-x:hidden;
+}
+
+button {font-family:inherit;cursor:pointer;}
+
+.demo {
+  background:#ff7518;
+  color:#111;
+  text-align:center;
+  padding:8px;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+
+header {
+  height:80px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 7%;
+  background:#101010;
+  position:sticky;
+  top:0;
+  z-index:50;
+  border-bottom:1px solid #292929;
+}
+
+.logo {
+  font-family:'Outfit',sans-serif;
+  font-size:27px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
+
+.logo span {color:var(--orange);}
+
+nav {
+  display:flex;
+  align-items:center;
+  gap:32px;
+}
+
+nav a {
+  color:#ddd;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:600;
+}
+
+nav a:hover {color:var(--orange);}
+
+.cart-button {
+  background:var(--orange);
+  border:0;
+  color:#111;
+  padding:12px 19px;
+  border-radius:30px;
+  font-weight:800;
+}
+
+.hero {
+  min-height:590px;
+  padding:70px 8%;
+  display:flex;
+  align-items:center;
+  background:
+  linear-gradient(90deg,rgba(10,10,10,.98),rgba(10,10,10,.72),rgba(10,10,10,.15)),
+  url('https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=1800&q=85') center/cover;
+}
+
+.hero-content {max-width:580px;}
+
+.tag {
+  display:inline-block;
+  background:#ff751825;
+  border:1px solid #ff751855;
+  color:var(--orange);
+  padding:9px 15px;
+  border-radius:30px;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:2px;
+  margin-bottom:25px;
+}
+
+.hero h1 {
+  font-family:'Outfit',sans-serif;
+  font-size:clamp(48px,8vw,83px);
+  line-height:1;
+  font-weight:900;
+  margin-bottom:23px;
+}
+
+.hero h1 span {color:var(--orange);}
+
+.hero p {
+  color:#c1c1c1;
+  font-size:16px;
+  line-height:1.8;
+  max-width:450px;
+  margin-bottom:30px;
+}
+
+.primary-btn {
+  background:var(--orange);
+  color:#111;
+  border:0;
+  padding:16px 28px;
+  border-radius:7px;
+  font-weight:900;
+  font-size:14px;
+  display:inline-block;
+  text-decoration:none;
+  transition:.2s;
+}
+
+.primary-btn:hover {
+  background:var(--yellow);
+  transform:translateY(-3px);
+}
+
+.features {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  padding:30px 8%;
+  background:#181818;
+  border-top:1px solid #292929;
+  border-bottom:1px solid #292929;
+}
+
+.feature {
+  text-align:center;
+  padding:15px;
+  border-right:1px solid #333;
+}
+
+.feature:last-child {border:0;}
+
+.feature b {
+  display:block;
+  margin-top:8px;
+  font-size:13px;
+}
+
+.feature span {font-size:24px;}
+
+.section {
+  padding:90px 7%;
+}
+
+.section-heading {
+  text-align:center;
+  margin-bottom:42px;
+}
+
+.section-heading small {
+  color:var(--orange);
+  font-weight:800;
+  letter-spacing:3px;
+}
+
+.section-heading h2 {
+  font-family:'Outfit',sans-serif;
+  font-size:42px;
+  margin-top:10px;
+}
+
+.section-heading p {
+  color:var(--muted);
+  margin-top:12px;
+  font-size:14px;
+}
+
+.categories {
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-bottom:35px;
+}
+
+.category {
+  padding:11px 22px;
+  border:1px solid #393939;
+  background:transparent;
+  color:white;
+  border-radius:30px;
+  font-weight:700;
+  font-size:13px;
+}
+
+.category.active,.category:hover {
+  background:var(--orange);
+  color:#111;
+  border-color:var(--orange);
+}
+
+.menu-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px;
+}
+
+.product {
+  background:var(--card);
+  border:1px solid #292929;
+  border-radius:13px;
+  overflow:hidden;
+  transition:.25s;
+}
+
+.product:hover {
+  transform:translateY(-7px);
+  border-color:#ff751866;
+}
+
+.product img {
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  display:block;
+}
+
+.product-info {padding:20px;}
+
+.product-info h3 {
+  font-family:'Outfit',sans-serif;
+  font-size:21px;
+  margin-bottom:8px;
+}
+
+.product-info p {
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6;
+  min-height:39px;
+}
+
+.product-bottom {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:18px;
+}
+
+.price {
+  color:var(--orange);
+  font-weight:900;
+  font-size:20px;
+}
+
+.add {
+  border:0;
+  background:var(--orange);
+  color:#111;
+  width:39px;
+  height:39px;
+  border-radius:50%;
+  font-size:24px;
+  font-weight:700;
+}
+
+.offer {
+  margin:10px 7% 80px;
+  border-radius:15px;
+  min-height:300px;
+  padding:55px;
+  display:flex;
+  align-items:center;
+  background:
+  linear-gradient(90deg,rgba(0,0,0,.95),rgba(0,0,0,.5)),
+  url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1400&q=85') center/cover;
+}
+
+.offer h2 {
+  font-family:'Outfit',sans-serif;
+  font-size:43px;
+  margin-bottom:15px;
+}
+
+.offer h2 span {color:var(--orange);}
+
+.offer p {
+  color:#ddd;
+  margin-bottom:25px;
+}
+
+.about {
+  background:#181818;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:center;
+}
+
+.about img {
+  width:100%;
+  height:370px;
+  object-fit:cover;
+  border-radius:12px;
+}
+
+.about h2 {
+  font-family:'Outfit',sans-serif;
+  font-size:39px;
+  margin:15px 0;
+}
+
+.about p {
+  color:var(--muted);
+  line-height:1.9;
+  font-size:14px;
+}
+
+footer {
+  background:#090909;
+  padding:55px 7% 25px;
+  text-align:center;
+}
+
+footer .logo {margin-bottom:15px;}
+
+footer p {
+  color:#888;
+  font-size:12px;
+  line-height:2;
+}
+
+.footer-line {
+  border-top:1px solid #292929;
+  margin-top:30px;
+  padding-top:20px;
+}
+
+.cart-overlay {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#000b;
+  z-index:100;
+}
+
+.cart-overlay.open {display:block;}
+
+.cart-panel {
+  position:absolute;
+  right:0;
+  top:0;
+  height:100%;
+  width:min(420px,100%);
+  background:#181818;
+  padding:25px;
+  overflow-y:auto;
+}
+
+.cart-head {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
+
+.close {
+  background:none;
+  color:white;
+  border:0;
+  font-size:28px;
+}
+
+.cart-item {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  border-bottom:1px solid #333;
+  padding:16px 0;
+}
+
+.cart-item small {color:#aaa;}
+
+.quantity {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.quantity button {
+  width:27px;
+  height:27px;
+  border:0;
+  border-radius:50%;
+  background:var(--orange);
+  font-weight:900;
+}
+
+.cart-total {
+  display:flex;
+  justify-content:space-between;
+  margin:25px 0;
+  font-size:20px;
+  font-weight:900;
+}
+
+.checkout {
+  width:100%;
+  border:0;
+  background:#20c46b;
+  color:#07190d;
+  padding:16px;
+  border-radius:7px;
+  font-weight:900;
+  font-size:14px;
+}
+
+.empty {
+  color:#888;
+  text-align:center;
+  padding:45px 0;
+}
+
+.mobile-cart {display:none;}
+
+@media(max-width:800px) {
+  header {padding:0 5%;height:70px;}
+  nav {gap:13px;}
+  nav a {display:none;}
+  .logo {font-size:23px;}
+  .hero {min-height:550px;padding:65px 7%;}
+  .features {padding:20px 3%;}
+  .feature {padding:10px 4px;}
+  .feature b {font-size:10px;}
+  .section {padding:70px 5%;}
+  .section-heading h2 {font-size:34px;}
+  .menu-grid {grid-template-columns:repeat(2,1fr);gap:13px;}
+  .product img {height:155px;}
+  .product-info {padding:13px;}
+  .product-info h3 {font-size:17px;}
+  .product-info p {font-size:11px;}
+  .price {font-size:16px;}
+  .add {width:34px;height:34px;}
+  .offer {margin:0 5% 60px;padding:35px 23px;}
+  .offer h2 {font-size:33px;}
+  .about {grid-template-columns:1fr;gap:25px;}
+  .about img {height:260px;}
+  .mobile-cart {display:inline-block;}
+}
+
+@media(max-width:390px) {
+  .menu-grid {grid-template-columns:1fr;}
+  .product img {height:210px;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="demo">
+  DEMO WEBSITE · PRÉSENTATION NON OFFICIELLE
+</div>
+
+<header>
+  <a href="#" class="logo" style="text-decoration:none;color:white">
+    MIAM<span>MIAM.</span>
+  </a>
+
+  <nav>
+    <a href="#home">Accueil</a>
+    <a href="#menu">Menu</a>
+    <a href="#about">À propos</a>
+    <a href="#contact">Contact</a>
+    <button class="cart-button" onclick="openCart()">
+      🛒 Panier (<span id="cart-count">0</span>)
+    </button>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="tag">FRESH · TASTY · DELICIOUS</div>
+
+    <h1>
+      LE GOÛT<br>
+      QUI FAIT<br>
+      <span>PLAISIR.</span>
+    </h1>
+
+    <p>
+      Découvrez un univers de saveurs, des burgers généreux,
+      des pizzas gourmandes et des recettes préparées avec passion.
+    </p>
+
+    <a href="#menu" class="primary-btn">DÉCOUVRIR LE MENU →</a>
+  </div>
+</section>
+
+<div class="features">
+  <div class="feature">
+    <span>🍔</span>
+    <b>PRODUITS GOURMANDS</b>
+  </div>
+  <div class="feature">
+    <span>🔥</span>
+    <b>PRÉPARATION À LA COMMANDE</b>
+  </div>
+  <div class="feature">
+    <span>⚡</span>
+    <b>COMMANDE FACILE</b>
+  </div>
+</div>
+
+<section class="section" id="menu">
+
+  <div class="section-heading">
+    <small>NOTRE SÉLECTION</small>
+    <h2>EXPLOREZ NOTRE MENU</h2>
+    <p>Des saveurs pour toutes vos envies.</p>
+  </div>
+
+  <div class="categories">
+    <button class="category active" data-cat="all">Tout</button>
+    <button class="category" data-cat="burger">🍔 Burgers</button>
+    <button class="category" data-cat="pizza">🍕 Pizzas</button>
+    <button class="category" data-cat="tacos">🌮 Tacos</button>
+    <button class="category" data-cat="sandwich">🥪 Sandwichs</button>
+  </div>
+
+  <div class="menu-grid" id="menu-grid"></div>
+
+</section>
+
+<section class="offer">
+  <div>
+    <div class="tag">OFFRE SPÉCIALE</div>
+    <h2>UNE ENVIE DE<br><span>SE FAIRE PLAISIR ?</span></h2>
+    <p>Votre prochain repas préféré vous attend.</p>
+    <a href="#menu" class="primary-btn">COMMANDER MAINTENANT</a>
+  </div>
+</section>
+
+<section class="section about" id="about">
+
+  <div>
+    <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=1000&q=85" alt="Burger gourmand">
+  </div>
+
+  <div>
+    <div class="tag">NOTRE UNIVERS</div>
+    <h2>LA PASSION DU BON GOÛT.</h2>
+    <p>
+      Bienvenue chez MIAM MIAM.
+      Nous aimons les bons produits, les recettes gourmandes
+      et les moments de partage autour d'un bon repas.
+      Découvrez notre sélection et faites-vous plaisir.
+    </p>
+    <br>
+    <a href="#menu" class="primary-btn">VOIR LE MENU</a>
+  </div>
+
+</section>
+
+<footer id="contact">
+
+  <div class="logo">MIAM<span>.</span></div>
+
+  <p>
+    Votre prochaine envie gourmande commence ici.<br>
+    Consultez notre menu et préparez votre commande.
+  </p>
+
+  <div class="footer-line">
+    <p>© 2026 MIAM MIAM · Site de démonstration</p>
+  </div>
+
+</footer>
+
+<div class="cart-overlay" id="cart-overlay" onclick="overlayClick(event)">
+  <div class="cart-panel">
+
+    <div class="cart-head">
+      <h2>Votre panier 🛒</h2>
+      <button class="close" onclick="closeCart()">×</button>
+    </div>
+
+    <div id="cart-items"></div>
+
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cart-total">0 DH</span>
+    </div>
+
+    <button class="checkout" onclick="checkout()">
+      COMMANDER VIA WHATSAPP
+    </button>
+
+    <p style="color:#888;font-size:11px;margin-top:15px;text-align:center">
+      Les commandes sont envoyées directement au restaurant.
+    </p>
+
+  </div>
+</div>
+
+<script>
+
+const products = [
+  {
+    id:1,
+    name:"Classic Burger",
+    cat:"burger",
+    price:35,
+    desc:"Steak, cheddar, salade et sauce maison.",
+    img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80"
+  },
+  {
+    id:2,
+    name:"Double Cheese",
+    cat:"burger",
+    price:49,
+    desc:"Double steak, double cheddar et sauce spéciale.",
+    img:"https://images.unsplash.com/photo-1553979459-d2229ba7433b?auto=format&fit=crop&w=700&q=80"
+  },
+  {
+    id:3,
+    name:"Chicken Burger",
+    cat:"burger",
+    price:39,
+    desc:"Poulet croustillant, salade et sauce crémeuse.",
+    img:"https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=700&q=80"
+  },
+  {
+    id:4,
+    name:"Pizza Margherita",
+    cat:"pizza",
+    price:45,
+    desc:"Tomate, mozzarella et basilic.",
+    img:"https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=700&q=80"
+  },
+  {
+    id:5,
+    name:"Pizza Pepperoni",
+    cat:"pizza",
+    price:59,
+    desc:"Mozzarella, pepperoni et sauce tomate.",
+    img:"https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=700&q=80"
+  },
+  {
+    id:6,
+    name:"Pizza Royal",
+    cat:"pizza",
+    price:65,
+    desc:"Une pizza généreuse aux saveurs variées.",
+    img:"https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=700&q=80"
+  },
+  {
+    id:7,
+    name:"Tacos Poulet",
+    cat:"tacos",
+    price:40,
+    desc:"Poulet, frites et sauce fromagère.",
+    img:"https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&w=700&q=80"
+  },
+  {
+    id:8,
+    name:"Tacos Mixte",
+    cat:"tacos",
+    price:50,
+    desc:"Un mélange gourmand de viandes et de sauces.",
+    img:"https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=700&q=80"
+  },
+  {
+    id:9,
+    name:"Sandwich Chicken",
+    cat:"sandwich",
+    price:30,
+    desc:"Poulet grillé, légumes frais et sauce maison.",
+    img:"https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=700&q=80"
+  }
+];
+
+let cart = [];
+
+function renderMenu(category="all") {
+  const grid = document.getElementById("menu-grid");
+
+  const filtered = category === "all"
+    ? products
+    : products.filter(p => p.cat === category);
+
+  grid.innerHTML = filtered.map(p => `
+    <article class="product">
+      <img src="${p.img}" alt="${p.name}" loading="lazy">
+      <div class="product-info">
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <div class="product-bottom">
+          <span class="price">${p.price} DH</span>
+          <button class="add" onclick="addToCart(${p.id})">+</button>
+        </div>
+      </div>
+    </article>
+  `).join("");
+}
+
+document.querySelectorAll(".category").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".category").forEach(b => b.classList.remove("active"));
+    button.classList.add("active");
+    renderMenu(button.dataset.cat);
+  });
+});
+
+function addToCart(id) {
+  const product = products.find(p => p.id === id);
+  const existing = cart.find(item => item.id === id);
+
+  if(existing) {
+    existing.qty++;
+  } else {
+    cart.push({...product,qty:1});
+  }
+
+  updateCart();
+
+  const count = document.getElementById("cart-count");
+  count.style.transform = "scale(1.3)";
+  setTimeout(() => count.style.transform = "scale(1)",200);
+}
+
+function updateCart() {
+  const container = document.getElementById("cart-items");
+  const count = cart.reduce((sum,item) => sum + item.qty,0);
+  const total = cart.reduce((sum,item) => sum + item.price * item.qty,0);
+
+  document.getElementById("cart-count").textContent = count;
+  document.getElementById("cart-total").textContent = total + " DH";
+
+  if(cart.length === 0) {
+    container.innerHTML = '<div class="empty">Votre panier est vide 🍔</div>';
+    return;
+  }
+
+  container.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div>
+        <b>${item.name}</b><br>
+        <small>${item.price} DH × ${item.qty}</small>
+      </div>
+      <div class="quantity">
+        <button onclick="changeQty(${item.id},-1)">−</button>
+        <b>${item.qty}</b>
+        <button onclick="changeQty(${item.id},1)">+</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function changeQty(id,change) {
+  const item = cart.find(p => p.id === id);
+  if(!item) return;
+
+  item.qty += change;
+
+  if(item.qty <= 0) {
+    cart = cart.filter(p => p.id !== id);
+  }
+
+  updateCart();
+}
+
+function openCart() {
+  document.getElementById("cart-overlay").classList.add("open");
+}
+
+function closeCart() {
+  document.getElementById("cart-overlay").classList.remove("open");
+}
+
+function overlayClick(event) {
+  if(event.target.id === "cart-overlay") closeCart();
+}
+
+function checkout() {
+  if(cart.length === 0) {
+    alert("Votre panier est vide !");
+    return;
+  }
+
+  let phone = prompt(
+    "Entrez le numéro WhatsApp du restaurant avec l'indicatif international.\nExemple Maroc : 212612345678"
+  );
+
+  if(!phone) return;
+
+  phone = phone.replace(/[^0-9]/g,"");
+
+  if(phone.length < 10) {
+    alert("Veuillez entrer un numéro WhatsApp valide.");
+    return;
+  }
+
+  const total = cart.reduce((sum,item) => sum + item.price * item.qty,0);
+
+  let message = "Bonjour ! Je souhaite passer cette commande :\n\n";
+
+  cart.forEach(item => {
+    message += "• " + item.name + " x" + item.qty +
+      " = " + (item.price * item.qty) + " DH\n";
+  });
+
+  message += "\nTOTAL : " + total + " DH";
+  message += "\n\nMerci !";
+
+  const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+
+  window.open(url,"_blank");
+}
+
+renderMenu();
+updateCart();
+
+</script>
+
+</body>
+</html>
